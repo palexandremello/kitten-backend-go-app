@@ -19,13 +19,13 @@ func TestNewHousehold(t *testing.T) {
 	}
 
 	members := []*users.User{
-		&users.User{
+		{
 			ID:       "any_id",
 			Name:     "Paulo Alexandre",
 			Email:    "palexandremello@gmail.com",
 			Password: "any_password",
 		},
-		&users.User{
+		{
 			ID:       "any_id",
 			Name:     "Tatsuro Yamashita",
 			Email:    "yamashita@gmail.com",
@@ -34,7 +34,7 @@ func TestNewHousehold(t *testing.T) {
 	}
 
 	cats := []*cats.Cat{
-		&cats.Cat{
+		{
 			ID:         "any_id",
 			Name:       "Lara",
 			Birthday:   time.Date(2010, time.January, 1, 0, 0, 0, 0, time.UTC),
@@ -46,7 +46,7 @@ func TestNewHousehold(t *testing.T) {
 			Sleep:      []*cats.CatSleep{},
 			Residences: []*residence.CatResidence{},
 		},
-		&cats.Cat{
+		{
 			ID:         "any_id",
 			Name:       "Baco",
 			Birthday:   time.Date(2010, time.January, 1, 0, 0, 0, 0, time.UTC),
