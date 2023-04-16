@@ -10,6 +10,8 @@ type Cat struct {
 	Name       string
 	Birthday   time.Time
 	Breed      string
+	Weight     []*Weight
+	IsSpay     bool
 	Behaviors  []*Behaviors
 	Health     *HealthStatus
 	Diet       *Diet
