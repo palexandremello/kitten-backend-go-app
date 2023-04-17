@@ -2,6 +2,8 @@ package household_test
 
 import (
 	cats "kitten-backend-go-app/app/core/domain/cat"
+	"kitten-backend-go-app/app/core/domain/diet"
+	health "kitten-backend-go-app/app/core/domain/health"
 	households "kitten-backend-go-app/app/core/domain/household"
 	residence "kitten-backend-go-app/app/core/domain/residence"
 	users "kitten-backend-go-app/app/core/domain/user"
@@ -39,9 +41,10 @@ func TestNewHousehold(t *testing.T) {
 			Name:       "Lara",
 			Birthday:   time.Date(2010, time.January, 1, 0, 0, 0, 0, time.UTC),
 			Breed:      "SRD",
+			Weight:     []*cats.Weight{},
 			Behaviors:  []*cats.Behaviors{},
-			Health:     &cats.HealthStatus{},
-			Diet:       &cats.Diet{},
+			Health:     &health.Health{},
+			Diet:       &diet.Diet{},
 			Activity:   &cats.Activity{},
 			Sleep:      []*cats.CatSleep{},
 			Residences: []*residence.CatResidence{},
@@ -52,8 +55,8 @@ func TestNewHousehold(t *testing.T) {
 			Birthday:   time.Date(2010, time.January, 1, 0, 0, 0, 0, time.UTC),
 			Breed:      "SRD",
 			Behaviors:  []*cats.Behaviors{},
-			Health:     &cats.HealthStatus{},
-			Diet:       &cats.Diet{},
+			Health:     &health.Health{},
+			Diet:       &diet.Diet{},
 			Activity:   &cats.Activity{},
 			Sleep:      []*cats.CatSleep{},
 			Residences: []*residence.CatResidence{},

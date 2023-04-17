@@ -2,6 +2,8 @@ package cat_test
 
 import (
 	cats "kitten-backend-go-app/app/core/domain/cat"
+	"kitten-backend-go-app/app/core/domain/diet"
+	"kitten-backend-go-app/app/core/domain/health"
 	residence "kitten-backend-go-app/app/core/domain/residence"
 	"testing"
 	"time"
@@ -15,8 +17,8 @@ func TestCat(t *testing.T) {
 		Birthday:   time.Date(2010, time.January, 1, 0, 0, 0, 0, time.UTC),
 		Breed:      "Persian",
 		Behaviors:  []*cats.Behaviors{},
-		Health:     &cats.HealthStatus{},
-		Diet:       &cats.Diet{},
+		Health:     &health.Health{},
+		Diet:       &diet.Diet{},
 		Activity:   &cats.Activity{},
 		Sleep:      []*cats.CatSleep{},
 		Residences: []*residence.CatResidence{},
