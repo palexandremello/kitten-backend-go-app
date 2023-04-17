@@ -3,6 +3,7 @@ package cats
 import (
 	"kitten-backend-go-app/app/core/domain/diet"
 	"kitten-backend-go-app/app/core/domain/health"
+	"kitten-backend-go-app/app/core/domain/meal"
 	"kitten-backend-go-app/app/core/domain/residence"
 	"time"
 )
@@ -16,6 +17,7 @@ type Cat struct {
 	Behaviors  []*Behaviors
 	Health     *health.Health
 	Diet       *diet.Diet
+	Meal       []*meal.Meal
 	Activity   *Activity
 	Sleep      []*CatSleep
 	Residences []*residence.CatResidence
