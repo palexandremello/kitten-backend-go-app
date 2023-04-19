@@ -23,7 +23,7 @@ func (m *RepositoryMock) Save(user *users.User) error {
 
 func (m *RepositoryMock) GetByEmail(email string) (*users.User, error) {
 	args := m.Called(email)
-	return nil, args.Error(1)
+	return args.Get(0).(*users.User), args.Error(1)
 }
 
 func TestCreateUser(t *testing.T) {
