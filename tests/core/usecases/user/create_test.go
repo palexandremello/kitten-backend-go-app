@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -65,6 +66,17 @@ func TestCreateUser(t *testing.T) {
 		err := service.CreateUser("Test User", "palexandremello@gmail.com", "password123")
 		assert.Error(t, err)
 		assert.Equal(t, "user with this email already exists", err.Error())
+
+	})
+
+	t.Run("Should be able to throws if CreateUser throws", func(t *testing.T) {
+		mockRepo := new(RepositoryMock)
+		service := user.NewUserService(mockRepo)
+
+		mockRepo.On("GetByEmail", "palexandremello@gmail.com").Return(nil, errors.New("repository error"))
+
+		err := service.CreateUser("Test User", "palexandremello@gmail.com", "password123")
+		assert.Error(t, err)
 
 	})
 
