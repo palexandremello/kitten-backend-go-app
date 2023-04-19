@@ -6,13 +6,14 @@ import (
 	"time"
 )
 
-// Meal é a entidade responsavel pelo registro de refeições para o Gato
+// Meal é a entidade responsável pelo registro de refeições para o gato
 type Meal struct {
-	ID        string
-	DietID    string
-	MealType  mealtype.Type
-	FoodType  foodtype.Type
-	Amount    float32
-	CreatedAt time.Time
-	UpdatedAt time.Time
+	ID               string
+	DietID           string
+	MealType         mealtype.Type
+	FoodType         foodtype.Type
+	Amount           float32
+	CaloriesConsumed float32
+	CreatedAt        time.Time
+	UpdatedAt        time.Time
 }

@@ -4,5 +4,6 @@ package foodtype
 type Type struct {
 	ID          string
 	Name        string
+	KcalPerKg   float32
 	Description string
 }
