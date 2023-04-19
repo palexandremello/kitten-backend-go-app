@@ -23,7 +23,10 @@ func (m *RepositoryMock) Save(user *users.User) error {
 
 func (m *RepositoryMock) GetByEmail(email string) (*users.User, error) {
 	args := m.Called(email)
-	return args.Get(0).(*users.User), args.Error(1)
+	if user, ok := args.Get(0).(*users.User); ok {
+		return user, args.Error(1)
+	}
+	return nil, args.Error(1)
 }
 
 func TestCreateUser(t *testing.T) {
@@ -45,6 +48,24 @@ func TestCreateUser(t *testing.T) {
 
 		assert.NoError(t, err)
 		mockRepo.AssertExpectations(t)
+	})
+
+	t.Run("Should be able to return a Error if user already exists", func(t *testing.T) {
+		mockRepo := new(RepositoryMock)
+		service := user.NewUserService(mockRepo)
+
+		existingUser := &users.User{
+			Name:     "Test User",
+			Email:    "palexandremello@gmail.com",
+			Password: "password123",
+		}
+
+		mockRepo.On("GetByEmail", "palexandremello@gmail.com").Return(existingUser, nil)
+
+		err := service.CreateUser("Test User", "palexandremello@gmail.com", "password123")
+		assert.Error(t, err)
+		assert.Equal(t, "user with this email already exists", err.Error())
+
 	})
 
 }
