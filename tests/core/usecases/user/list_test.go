@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	users "kitten-backend-go-app/app/core/domain/user"
 	list "kitten-backend-go-app/app/core/usecases/user"
 
@@ -34,6 +35,20 @@ func TestListUsers(t *testing.T) {
 
 		assert.NoError(t, err)
 		assert.Equal(t, mockUsers, users)
+
+		mockRepo.AssertExpectations(t)
+	})
+
+	t.Run("should return an error if repository throws", func(t *testing.T) {
+		mockRepo := new(RepositoryMock)
+
+		mockRepo.On("List").Return(nil, errors.New("repository error"))
+
+		service := list.NewListUserService(mockRepo)
+		users, err := service.ListUsers()
+
+		assert.Error(t, err)
+		assert.Nil(t, users)
 
 		mockRepo.AssertExpectations(t)
 	})
