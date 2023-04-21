@@ -12,24 +12,6 @@ import (
 	create "kitten-backend-go-app/app/core/usecases/user"
 )
 
-// RepositoryMock mock interface
-type RepositoryMock struct {
-	mock.Mock
-}
-
-func (m *RepositoryMock) Save(user *users.User) error {
-	args := m.Called(user)
-	return args.Error(0)
-}
-
-func (m *RepositoryMock) GetByEmail(email string) (*users.User, error) {
-	args := m.Called(email)
-	if user, ok := args.Get(0).(*users.User); ok {
-		return user, args.Error(1)
-	}
-	return nil, args.Error(1)
-}
-
 func TestCreateUser(t *testing.T) {
 	t.Run("should create user successfully", func(t *testing.T) {
 		mockRepo := new(RepositoryMock)
