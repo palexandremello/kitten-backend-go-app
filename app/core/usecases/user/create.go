@@ -6,21 +6,21 @@ import (
 	"kitten-backend-go-app/app/core/interfaces/repositories/user"
 )
 
-// Service interface creates a User
-type Service interface {
+// CreateUserService is the Service with responsability to create a user
+type CreateUserService interface {
 	CreateUser(name string, email string, password string) error
 }
 
-type userService struct {
+type createUserService struct {
 	repo user.Repository
 }
 
-// NewUserService service create a new user
-func NewUserService(repo user.Repository) Service {
-	return &userService{repo: repo}
+// NewCreateUserService service create a new user
+func NewCreateUserService(repo user.Repository) CreateUserService {
+	return &createUserService{repo: repo}
 }
 
-func (s *userService) CreateUser(name string, email string, password string) error {
+func (s *createUserService) CreateUser(name string, email string, password string) error {
 	user := &users.User{
 		Name:     name,
 		Email:    email,

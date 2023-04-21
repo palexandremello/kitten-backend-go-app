@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/mock"
 
 	users "kitten-backend-go-app/app/core/domain/user"
-	"kitten-backend-go-app/app/core/usecases/user"
+	create "kitten-backend-go-app/app/core/usecases/user"
 )
 
 // RepositoryMock mock interface
@@ -42,7 +42,7 @@ func TestCreateUser(t *testing.T) {
 		mockRepo.On("Save", mock.AnythingOfType("*users.User")).Return(nil)
 
 		t.Log(mockUser)
-		usecase := user.NewUserService(mockRepo)
+		usecase := create.NewCreateUserService(mockRepo)
 		err := usecase.CreateUser(mockUser.Name, mockUser.Email, mockUser.Password)
 
 		mockRepo.AssertCalled(t, "Save", mock.AnythingOfType("*users.User"))
@@ -53,7 +53,7 @@ func TestCreateUser(t *testing.T) {
 
 	t.Run("Should be able to return a Error if user already exists", func(t *testing.T) {
 		mockRepo := new(RepositoryMock)
-		service := user.NewUserService(mockRepo)
+		service := create.NewCreateUserService(mockRepo)
 
 		existingUser := &users.User{
 			Name:     "Test User",
@@ -71,7 +71,7 @@ func TestCreateUser(t *testing.T) {
 
 	t.Run("Should be able to throws if CreateUser throws", func(t *testing.T) {
 		mockRepo := new(RepositoryMock)
-		service := user.NewUserService(mockRepo)
+		service := create.NewCreateUserService(mockRepo)
 
 		mockRepo.On("GetByEmail", "palexandremello@gmail.com").Return(nil, errors.New("repository error"))
 
