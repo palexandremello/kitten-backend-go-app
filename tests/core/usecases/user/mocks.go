@@ -31,3 +31,11 @@ func (m *RepositoryMock) List() ([]*users.User, error) {
 	}
 	return nil, args.Error(1)
 }
+
+func (m *RepositoryMock) GetByID(id string) (*users.User, error) {
+	args := m.Called(id)
+	if user, ok := args.Get(0).(*users.User); ok {
+		return user, args.Error(1)
+	}
+	return nil, args.Error(1)
+}
