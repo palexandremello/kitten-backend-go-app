@@ -46,7 +46,6 @@ func TestGetUserByIDService(t *testing.T) {
 	t.Run("should return nil and error if ID is empty", func(t *testing.T) {
 
 		mockRepo := new(RepositoryMock)
-		mockRepo.On("GetByID", "").Return(nil, errors.New("ID is required"))
 
 		service := user.NewGetUserByIDService(mockRepo)
 		user, err := service.GetUserByID("")

@@ -1,9 +1,12 @@
 package user
 
 import (
+	"errors"
 	users "kitten-backend-go-app/app/core/domain/user"
 	"kitten-backend-go-app/app/core/interfaces/repositories/user"
 )
+
+var ErrIDRequired = errors.New("ID is required")
 
 type GetUserByIDService interface {
 	GetUserByID(id string) (*users.User, error)
@@ -18,6 +21,11 @@ func NewGetUserByIDService(repo user.Repository) GetUserByIDService {
 }
 
 func (s *getUserByIDService) GetUserByID(id string) (*users.User, error) {
+
+	if id == "" {
+		return nil, ErrIDRequired
+	}
+
 	userChan := make(chan *users.User)
 	errChan := make(chan error)
 
