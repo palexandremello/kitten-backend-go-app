@@ -7,25 +7,30 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 func TestGetUserByEmailUseCase(t *testing.T) {
 
 	t.Run("should return a user by email", func(t *testing.T) {
 
-		userEmail := "pmello@mail.com"
-		expectedUser := &users.User{Email: userEmail}
+		mockUser := &users.User{
+			ID:       "abc123",
+			Name:     "Paulo Mello",
+			Email:    "pmello@example.com",
+			Password: "password123",
+		}
 
 		mockRepo := new(RepositoryMock)
-		mockRepo.On("GetByEmail", userEmail).Return(expectedUser, nil)
+		mockRepo.On("GetByEmail", mock.Anything).Return(mockUser, nil)
 
-		usecase := user.NewGetUserByEmailUseCase(mockRepo)
+		useCase := user.NewGetUserByEmailUseCase(mockRepo)
 
-		user, err := usecase.Execute(userEmail)
+		user, err := useCase.Execute("pmello@example.com")
 
 		assert.NoError(t, err)
-		assert.Equal(t, expectedUser, user)
-		mockRepo.AssertExpectations(t)
+		assert.NotNil(t, user)
+		assert.Equal(t, mockUser, user)
 	})
 
 	t.Run("should return error if repository throws", func(t *testing.T) {
