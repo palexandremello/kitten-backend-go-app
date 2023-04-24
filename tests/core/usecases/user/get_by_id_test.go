@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetUserByIDService(t *testing.T) {
+func TestGetUserByIDUseCase(t *testing.T) {
 
 	t.Run("should return a user by ID", func(t *testing.T) {
 
