@@ -44,4 +44,16 @@ func TestGetUserByEmailUseCase(t *testing.T) {
 		assert.EqualError(t, err, expectedError.Error())
 		mockRepo.AssertExpectations(t)
 	})
+
+	t.Run("should return nil and error if email is empty", func(t *testing.T) {
+
+		mockRepo := new(RepositoryMock)
+
+		usecase := user.NewGetUserByEmailUseCase(mockRepo)
+		user, err := usecase.Execute("")
+
+		assert.Nil(t, user)
+		assert.EqualError(t, err, "email is required")
+		mockRepo.AssertExpectations(t)
+	})
 }
