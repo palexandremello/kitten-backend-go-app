@@ -42,4 +42,17 @@ func TestGetUserByIDService(t *testing.T) {
 		assert.EqualError(t, err, expectedError.Error())
 		mockRepo.AssertExpectations(t)
 	})
+
+	t.Run("should return nil and error if ID is empty", func(t *testing.T) {
+
+		mockRepo := new(RepositoryMock)
+		mockRepo.On("GetByID", "").Return(nil, errors.New("ID is required"))
+
+		service := user.NewGetUserByIDService(mockRepo)
+		user, err := service.GetUserByID("")
+
+		assert.Nil(t, user)
+		assert.EqualError(t, err, "ID is required")
+		mockRepo.AssertExpectations(t)
+	})
 }
