@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	users "kitten-backend-go-app/app/core/domain/user"
 	"kitten-backend-go-app/app/core/usecases/user"
 	"testing"
@@ -24,6 +25,23 @@ func TestGetUserByEmailUseCase(t *testing.T) {
 
 		assert.NoError(t, err)
 		assert.Equal(t, expectedUser, user)
+		mockRepo.AssertExpectations(t)
+	})
+
+	t.Run("should return error if repository throws", func(t *testing.T) {
+
+		userEmail := "pmello@mail.com"
+
+		expectedError := errors.New("something went wrong")
+
+		mockRepo := new(RepositoryMock)
+		mockRepo.On("GetByEmail", userEmail).Return(nil, expectedError)
+
+		usecase := user.NewGetUserByEmailUseCase(mockRepo)
+		user, err := usecase.Execute(userEmail)
+
+		assert.Nil(t, user)
+		assert.EqualError(t, err, expectedError.Error())
 		mockRepo.AssertExpectations(t)
 	})
 }
