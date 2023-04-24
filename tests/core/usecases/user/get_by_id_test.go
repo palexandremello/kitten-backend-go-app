@@ -1,6 +1,7 @@
 package user
 
 import (
+	"errors"
 	users "kitten-backend-go-app/app/core/domain/user"
 	"kitten-backend-go-app/app/core/usecases/user"
 	"testing"
@@ -23,6 +24,22 @@ func TestGetUserByIDService(t *testing.T) {
 
 		assert.NoError(t, err)
 		assert.Equal(t, expectedUser, user)
+		mockRepo.AssertExpectations(t)
+	})
+
+	t.Run("should return error if repository throws", func(t *testing.T) {
+
+		userID := "any_id"
+		expectedError := errors.New("something went wrong")
+
+		mockRepo := new(RepositoryMock)
+		mockRepo.On("GetByID", userID).Return(nil, expectedError)
+
+		service := user.NewGetUserByIDService(mockRepo)
+		user, err := service.GetUserByID(userID)
+
+		assert.Nil(t, user)
+		assert.EqualError(t, err, expectedError.Error())
 		mockRepo.AssertExpectations(t)
 	})
 }
