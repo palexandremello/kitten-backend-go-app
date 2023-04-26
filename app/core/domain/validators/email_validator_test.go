@@ -50,7 +50,7 @@ func TestValidatorEmail_Validate(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "Invalid email has only one char before @",
+			name: "Invalid email has only one char before @ ",
 			args: args{
 				email: "t@ex@mple.com",
 			},
