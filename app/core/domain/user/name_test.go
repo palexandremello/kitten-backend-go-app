@@ -15,4 +15,11 @@ func TestName(t *testing.T) {
 		assert.Equal(t, "Paulo Mello", name.Value())
 	})
 
+	t.Run("should return an error if name is empty", func(t *testing.T) {
+
+		_, err := NewName("")
+		assert.NotNil(t, err)
+		assert.Equal(t, "name is required", err.Error())
+	})
+
 }
