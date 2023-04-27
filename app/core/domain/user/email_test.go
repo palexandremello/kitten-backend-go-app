@@ -1,6 +1,7 @@
 package users
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -28,6 +29,19 @@ func TestEmail(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, email, result.Value())
+	})
+
+	t.Run("should return an error if email is invalid", func(t *testing.T) {
+
+		email := "invalid_email"
+
+		validator := &mockEmailValidator{}
+		validator.On("Validate", email).Return(errors.New("email is invalid"))
+
+		result, err := NewEmail(email, validator)
+
+		assert.Error(t, err)
+		assert.Nil(t, result)
 	})
 
 }
