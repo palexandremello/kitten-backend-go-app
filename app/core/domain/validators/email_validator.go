@@ -26,43 +26,54 @@ func (v *ValidatorEmail) Validate(email string) error {
 }
 
 func isValidFormat(email string) bool {
-
 	if !strings.Contains(email, "@") {
 		return false
 	}
 
 	parts := strings.Split(email, "@")
-	println(parts[0])
-	if len(parts[0]) < 1 || len(parts[0]) > 64 {
+	if !isValidUsername(parts[0]) {
 		return false
 	}
 
-	if len(parts[1]) < 3 || len(parts[1]) > 255 {
+	if !isValidDomain(parts[1]) {
 		return false
 	}
 
-	domain := parts[1]
+	return true
+}
+
+func isValidUsername(username string) bool {
+	if len(username) < 1 || len(username) > 64 {
+		return false
+	}
+
+	if match, _ := regexp.MatchString("^[a-zA-Z0-9-][a-zA-Z0-9\\-]*[a-zA-Z0-9]$", username); !match {
+		return false
+	}
+
+	return true
+}
+
+func isValidDomain(domain string) bool {
+	if len(domain) < 3 || len(domain) > 255 {
+		return false
+	}
 
 	if strings.HasPrefix(domain, "-") || strings.HasSuffix(domain, "-") {
 		return false
 	}
 
-	if !strings.Contains(domain, ".") {
+	parts := strings.Split(domain, ".")
+	if len(parts[len(parts)-1]) < 2 || len(parts[len(parts)-1]) > 6 {
 		return false
 	}
 
-	subdomains := strings.Split(domain, ".")
-
-	for _, subdomain := range subdomains {
-		if len(subdomains[len(subdomains)-1]) < 2 || len(subdomains[len(subdomains)-1]) > 6 {
+	for _, part := range parts {
+		if strings.HasPrefix(part, "-") || strings.HasSuffix(part, "-") {
 			return false
 		}
 
-		if strings.HasPrefix(subdomain, "-") || strings.HasSuffix(subdomain, "-") {
-			return false
-		}
-
-		if match, _ := regexp.MatchString("^[a-zA-Z0-9-][a-zA-Z0-9\\-]*[a-zA-Z0-9]$", subdomain); !match {
+		if match, _ := regexp.MatchString("^[a-zA-Z0-9-][a-zA-Z0-9\\-]*[a-zA-Z0-9]$", part); !match {
 			return false
 		}
 	}
