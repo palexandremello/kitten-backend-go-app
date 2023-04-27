@@ -5,7 +5,7 @@ type EmailValidator interface {
 }
 
 type Email struct {
-	email string
+	value string
 }
 
 func NewEmail(email string, validator EmailValidator) (*Email, error) {
@@ -14,10 +14,10 @@ func NewEmail(email string, validator EmailValidator) (*Email, error) {
 	}
 
 	return &Email{
-		email: email,
+		value: email,
 	}, nil
 }
 
 func (e *Email) Value() string {
-	return e.email
+	return e.value
 }
