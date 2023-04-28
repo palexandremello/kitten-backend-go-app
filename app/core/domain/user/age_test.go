@@ -18,4 +18,14 @@ func TestAge(t *testing.T) {
 		assert.Equal(t, 20, age.Value())
 		assert.Nil(t, err)
 	})
+
+	t.Run("should return error if birthdate is invalid", func(t *testing.T) {
+
+		age := time.Now().AddDate(-200, 0, 0)
+
+		_, err := NewAge(age)
+
+		assert.Error(t, err)
+
+	})
 }
