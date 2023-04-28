@@ -9,6 +9,7 @@ var ErrInvalidAge = errors.New("age is invalid")
 
 type Age struct {
 	birthdate time.Time
+	age       int
 }
 
 func NewAge(birthdate time.Time) (*Age, error) {
@@ -21,10 +22,10 @@ func NewAge(birthdate time.Time) (*Age, error) {
 
 	return &Age{
 		birthdate: birthdate,
+		age:       age,
 	}, nil
 }
 
 func (a *Age) Value() int {
-	age := int(time.Since(a.birthdate).Hours() / 24 / 365.25)
-	return age
+	return a.age
 }
