@@ -42,4 +42,22 @@ func TestPasswordValidator(t *testing.T) {
 
 		assert.EqualError(t, err, ErrPasswordMissingDigit.Error())
 	})
+
+	t.Run("should return an error when password format is invalid", func(t *testing.T) {
+
+		password := "Abcdefg1ñ"
+
+		err := validator.Validate(password)
+
+		assert.EqualError(t, err, ErrPasswordInvalidFormat.Error())
+	})
+
+	t.Run("should validate an correct password", func(t *testing.T) {
+		password := "Abc1def#"
+
+		err := validator.Validate(password)
+
+		assert.NoError(t, err)
+
+	})
 }
