@@ -16,4 +16,14 @@ func TestWage(t *testing.T) {
 
 		assert.Error(t, err)
 	})
+
+	t.Run("should return a validated MonthlyWage", func(t *testing.T) {
+
+		monthlyWage := 20000.0
+
+		result, err := NewWage(monthlyWage)
+
+		assert.Equal(t, monthlyWage, result.Value())
+		assert.Nil(t, err)
+	})
 }
