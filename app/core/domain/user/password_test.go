@@ -1,6 +1,7 @@
 package users
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -28,6 +29,19 @@ func TestPassword(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, password, result.Value())
+	})
+
+	t.Run("should return an error if password is invalid", func(t *testing.T) {
+
+		password := "invalid_password"
+
+		validator := &mockPasswordValidator{}
+		validator.On("Validate", password).Return(errors.New("password is invalid"))
+
+		result, err := NewPassword(password, validator)
+
+		assert.Error(t, err)
+		assert.Nil(t, result)
 	})
 
 }
