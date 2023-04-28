@@ -6,5 +6,6 @@ type User struct {
 	Name        *Name
 	Email       *Email
 	Password    *Password
+	Age         *Age
 	MonthlyWage *Wage
 }
