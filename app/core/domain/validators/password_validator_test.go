@@ -34,4 +34,12 @@ func TestPasswordValidator(t *testing.T) {
 
 		assert.EqualError(t, err, ErrPasswordMissingLower.Error())
 	})
+
+	t.Run("should return an error when missing digit", func(t *testing.T) {
+		password := "Abcdef#h"
+
+		err := validator.Validate(password)
+
+		assert.EqualError(t, err, ErrPasswordMissingDigit.Error())
+	})
 }
