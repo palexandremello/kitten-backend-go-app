@@ -26,4 +26,12 @@ func TestPasswordValidator(t *testing.T) {
 
 		assert.EqualError(t, err, ErrPasswordMissingUpper.Error())
 	})
+
+	t.Run("should return an error when missing lower case letter", func(t *testing.T) {
+		password := "ABC1235123"
+
+		err := validator.Validate(password)
+
+		assert.EqualError(t, err, ErrPasswordMissingLower.Error())
+	})
 }
