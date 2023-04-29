@@ -23,4 +23,13 @@ func TestUserPicture(t *testing.T) {
 
 		assert.Error(t, err)
 	})
+
+	t.Run("should return error when file MimeType is not supported", func(t *testing.T) {
+		data := make([]byte, 5<<20) // 5MB
+
+		_, err := NewUserPicture(data, "image/gif", "any_path")
+
+		assert.Error(t, err)
+
+	})
 }
