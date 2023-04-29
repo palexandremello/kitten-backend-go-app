@@ -32,4 +32,13 @@ func TestUserPicture(t *testing.T) {
 		assert.Error(t, err)
 
 	})
+
+	t.Run("should return a validated user picture", func(t *testing.T) {
+		data := make([]byte, 1<<20) // 1MB
+
+		userPicture, err := NewUserPicture(data, "image/jpeg", "any_path")
+
+		assert.NoError(t, err)
+		assert.NotNil(t, userPicture)
+	})
 }
