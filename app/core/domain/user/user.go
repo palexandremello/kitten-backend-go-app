@@ -8,4 +8,5 @@ type User struct {
 	Password    *Password
 	Age         *Age
 	MonthlyWage *Wage
+	UserPicture *UserPicture
 }
