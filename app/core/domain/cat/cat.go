@@ -1,6 +1,7 @@
 package cats
 
 import (
+	"kitten-backend-go-app/app/core/domain/common"
 	"kitten-backend-go-app/app/core/domain/diet"
 	"kitten-backend-go-app/app/core/domain/health"
 	"kitten-backend-go-app/app/core/domain/meal"
@@ -9,7 +10,7 @@ import (
 
 type Cat struct {
 	ID         string
-	Name       string
+	Name       *common.Name
 	Birthday   *Birthday
 	Breed      string
 	Weight     []*Weight
