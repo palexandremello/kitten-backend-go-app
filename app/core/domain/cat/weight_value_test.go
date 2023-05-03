@@ -17,4 +17,15 @@ func TestWeightValue(t *testing.T) {
 		assert.Error(t, err)
 		assert.Equal(t, "weight value must be greater than 0", err.Error())
 	})
+
+	t.Run("should return an validated weight value", func(t *testing.T) {
+
+		weight := 4.67
+
+		weightValue, err := NewWeightValue(weight)
+
+		assert.NotNil(t, weightValue)
+		assert.NoError(t, err)
+		assert.Equal(t, weight, weightValue.Value())
+	})
 }
