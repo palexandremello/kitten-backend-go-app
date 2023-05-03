@@ -5,13 +5,12 @@ import (
 	"kitten-backend-go-app/app/core/domain/health"
 	"kitten-backend-go-app/app/core/domain/meal"
 	"kitten-backend-go-app/app/core/domain/residence"
-	"time"
 )
 
 type Cat struct {
 	ID         string
 	Name       string
-	Birthday   time.Time
+	Birthday   *Birthday
 	Breed      string
 	Weight     []*Weight
 	Behaviors  []*Behaviors
