@@ -28,4 +28,13 @@ func TestBirthday(t *testing.T) {
 		assert.Equal(t, "birthday date is invalid", err.Error())
 	})
 
+	t.Run("should return a birthday date validated", func(t *testing.T) {
+		birthdayValue := time.Date(2015, time.October, 8, 0, 0, 0, 0, time.UTC)
+		birthday, err := NewBirthday(birthdayValue)
+
+		assert.NoError(t, err)
+		assert.NotNil(t, birthday)
+		assert.Equal(t, birthdayValue, birthday.Value())
+	})
+
 }
