@@ -1,0 +1,34 @@
+name: Test
+on:
+  push:
+    branches: ["production"]
+  pull_request:
+    branches: ["production"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.17
+    - name: Run tests
+      run: |
+        go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+        go tool cover -html=coverage.txt -o coverage.html
+    - name: Upload coverage
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage
+        path: coverage.txt
+    - name: Add badge
+      uses: EndBug/add-and-commit@v7.0.0
+      with:
+        author_name: "GitHub Actions"
+        author_email: "actions@github.com"
+        message: "Add coverage badge"
+        add: "README.md"
+        signoff: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
