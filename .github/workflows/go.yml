@@ -1,34 +1,46 @@
-name: Test
+name: Test with coverage
+
 on:
   push:
-    branches: ["production"]
+    branches: [ production ]
   pull_request:
-    branches: ["production"]
+    branches: [ production ]
+
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.17
-    - name: Run tests
-      run: |
-        go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
-        go tool cover -html=coverage.txt -o coverage.html
-    - name: Upload coverage
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage
-        path: coverage.txt
-    - name: Add badge
-      uses: EndBug/add-and-commit@v7.0.0
-      with:
-        author_name: "GitHub Actions"
-        author_email: "actions@github.com"
-        message: "Add coverage badge"
-        add: "README.md"
-        signoff: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v2
+
+      - name: Set up Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.17
+
+      - name: Install make
+        run: sudo apt-get update && sudo apt-get install -y make
+
+      - name: Run tests with coverage
+        run: make test_coverage
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage.out
+
+      - name: Generate coverage HTML report
+        run: |
+          go tool cover -html=coverage.out -o coverage.html
+
+      - name: Add coverage badge
+        uses: EndBug/add-and-commit@v7.0.0
+        with:
+          author_name: "GitHub Actions"
+          author_email: "actions@github.com"
+          message: "Add coverage badge"
+          add: "README.md"
+          signoff: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
