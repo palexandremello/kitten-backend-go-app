@@ -18,4 +18,16 @@ func TestFoodAmoun(t *testing.T) {
 		assert.Error(t, err)
 		assert.Equal(t, "food amount cannot be negative", err.Error())
 	})
+
+	t.Run("should return a validated food amount", func(t *testing.T) {
+
+		amount := float32(4.5)
+
+		foodAmount, err := NewFoodAmount(amount)
+
+		assert.NotNil(t, foodAmount)
+		assert.NoError(t, err)
+		assert.Equal(t, amount, foodAmount.Value())
+
+	})
 }
