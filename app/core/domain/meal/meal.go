@@ -13,7 +13,7 @@ type Meal struct {
 	MealType         mealtype.Type
 	FoodType         foodtype.Type
 	Amount           float32
-	CaloriesConsumed float32
+	CaloriesConsumed *CaloriesConsumed
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
 }
