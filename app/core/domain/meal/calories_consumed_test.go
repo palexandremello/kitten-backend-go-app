@@ -15,4 +15,14 @@ func TestCaloriesConsumed(t *testing.T) {
 		assert.NotNil(t, err)
 		assert.EqualError(t, err, "calories consumed cannot be negative")
 	})
+
+	t.Run("should validated calories consumed", func(t *testing.T) {
+		caloriesConsumed := 230.50
+
+		cc, err := NewCaloriesConsumed(caloriesConsumed)
+
+		assert.Nil(t, err)
+		assert.Equal(t, caloriesConsumed, cc.Value())
+
+	})
 }
