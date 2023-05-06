@@ -1,7 +1,7 @@
 package health
 
 import (
-	"kitten-backend-go-app/app/core/domain/health/calories"
+	"kitten-backend-go-app/app/core/domain/health/diet"
 	s "kitten-backend-go-app/app/core/domain/health/symptom"
 	"kitten-backend-go-app/app/core/domain/health/vaccination"
 	"time"
@@ -15,9 +15,9 @@ type Health struct {
 	DewormingSchemes []*Deworming
 	VaccinationCard  []*vaccination.Card
 	CommonSymptoms   []*s.Symptom
-	Calories         []*calories.Calories
-	CastrationStatus bool
-	CastrationDate   *time.Time
+	Diet             *diet.Diet
+	IsSpyOrNeutral   bool
+	SpyOrNeutralDate *time.Time
 	LastCheckup      *time.Time
 	CreatedAt        time.Time
 	UpdatedAt        time.Time
