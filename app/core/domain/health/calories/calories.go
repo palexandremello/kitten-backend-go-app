@@ -7,6 +7,6 @@ type Calories struct {
 	IsSpyOrNeutral   bool
 	BMR              float32
 	ActivityLevel    float32
-	AgeFactor        float32
+	AgeFactor        *AgeFactor
 	CastrationFactor float32
 }
