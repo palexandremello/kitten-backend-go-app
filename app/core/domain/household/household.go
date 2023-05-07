@@ -1,7 +1,7 @@
 package households
 
 import (
-	cats "kitten-backend-go-app/app/core/domain/cat"
+	cats "kitten-backend-go-app/app/core/domain/cats"
 	users "kitten-backend-go-app/app/core/domain/user"
 )
 
