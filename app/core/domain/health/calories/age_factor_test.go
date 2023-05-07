@@ -17,4 +17,15 @@ func TestAgeFactor(t *testing.T) {
 		assert.NotNil(t, err)
 		assert.Equal(t, "age cannot be negative", err.Error())
 	})
+
+	t.Run("should return 1.3 if age is greater than or equal to 15", func(t *testing.T) {
+
+		age := 15
+
+		ageFactor, _ := NewAgeFactor(age)
+
+		assert.NotNil(t, ageFactor)
+		assert.Equal(t, 1.3, ageFactor.Value())
+	})
+
 }
