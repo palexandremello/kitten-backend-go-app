@@ -38,4 +38,13 @@ func TestAgeFactor(t *testing.T) {
 		assert.Equal(t, 1.1, ageFactor.Value())
 	})
 
+	t.Run("should return 1.0 if age is an adult cat (less than 11)", func(t *testing.T) {
+		age := 10
+
+		ageFactor, _ := NewAgeFactor(age)
+
+		assert.NotNil(t, ageFactor)
+		assert.Equal(t, 1.0, ageFactor.Value())
+	})
+
 }
